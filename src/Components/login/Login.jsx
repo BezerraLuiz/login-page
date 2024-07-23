@@ -9,7 +9,22 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    alert("Enviando os dados " + username + " - " + password);
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        alert("Dados Enviados!");
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+        alert("Erro ao enviar os dados!");
+      });
   };
 
   return (
